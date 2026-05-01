@@ -47,9 +47,6 @@ dev = [
 harmony = [
     "harmony-service-lib>=2.0.0"
 ]
-integration = [
-    "harmony-py>=0.4.15"
-]
 
 [tool.hatch.version]
 source = "vcs"
