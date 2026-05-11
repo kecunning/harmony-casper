@@ -65,7 +65,7 @@ def create_markdown(md, ds, input_filename):
     a_val = f"# {input_filename} Global Attributes:\n\t"
     a_val += "\n\t".join(global_attrs)
     group_attrs = get_group_attributes(ds)
-    content = f"""{header}\n{data}\n{a_val}\n{group_attrs}"""
+    content = f"""{header}\n{data}\n{a_val}\n{group_attrs}\n"""
     return content
 
 
@@ -190,7 +190,7 @@ def convert_to_csv(fname: str, zip_file: str, logger: Logger = default_logger) -
             # Create JSON file with pretty printing
             json_readme(data, input_filename, json_obj)
             json_file = "Readme.json"
-            json_data = json.dumps(json_obj, indent=4)
+            json_data = json.dumps(json_obj, indent=4) + "\n"
             zf.writestr(json_file, json_data.encode("utf-8"))
 
     except Exception as e:
