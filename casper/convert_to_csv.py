@@ -123,7 +123,10 @@ def convert_to_csv(fname: str, zip_file: str, logger: Logger = default_logger) -
                 schemas[dims].append(varname)
 
         input_filename = Path(fname).name
-        vals = list(schemas.items())
+
+        # Sort the list of variables and the coordinates for consistency of output between systems
+        sorted_schemas = {k: sorted(v) for k, v in sorted(schemas.items())}
+        vals = list(sorted_schemas.items())
 
         # Create the zip file object in write mode
         with zipfile.ZipFile(
