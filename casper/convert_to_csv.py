@@ -18,7 +18,7 @@ default_logger = logging.getLogger(__name__)
 
 def remove_blank_lines(text):
     lines = text.splitlines()  # Split the string into a list of lines
-    real_lines = [line for line in lines if line.strip()]  # Filter out blank lines
+    real_lines = [line.strip() for line in lines if line.strip()]  # Filter out blank lines
     return "\n\t\t".join(real_lines)
 
 
@@ -28,7 +28,7 @@ def get_group_attributes(ds):
     for node in ds.subtree:
         if node.path != "/" and len(node.attrs) > 0:
             group_attrs += f"\n# Group {node.path} Attributes:\n\t"
-            attrs_dict = {k: str(v) for k, v in node.attrs.items()}
+            attrs_dict = {k.strip(): str(v).strip() for k, v in node.attrs.items()}
             attrs_dict = dict(sorted(attrs_dict.items()))
             f_attrs = [f"\t{k}: {remove_blank_lines(v)}" for k, v in attrs_dict.items()]
             group_attrs += "\n\t".join(f_attrs)
@@ -45,18 +45,18 @@ def get_global_attributes(ds):
 
 
 def create_markdown(md, ds, input_filename):
-    """Create markdown file contents"""
-    header = f"# {len(md)} CSV files created for {input_filename} based on dimensional schemas\n\n"
+    """Create markdown file content"""
+    header = f"## {len(md)} CSV files created for {input_filename} based on dimensional schemas\n\n"
     data = ""
     for k, v in md.items():
-        data += f"## {v['filename']}\n"
+        data += f"### {v['filename']}\n"
         data += "\tdimensions:"
         if len(k) > 0:
-            data += f"  {', '.join(k)}"
+            data += f"   {', '.join(k)}"
         data += "\n\tnon-dimension coordinates:"
         coords = [c for c in v["coords"] if c not in v["keys"]]
         if len(coords) > 0:
-            data += f"  {', '.join(coords)}"
+            data += f"   {', '.join(coords)}"
         data += f"\n\t{len(v['vrbs'])} variables:\n"
         if len(v["vrbs"]) > 0:
             data += f"\t\t{'\n\t\t'.join(v['vrbs'])}\n\n"
@@ -192,6 +192,9 @@ def convert_to_csv(fname: str, zip_file: str, logger: Logger = default_logger) -
             json_file = "Readme.json"
             json_data = json.dumps(json_obj, indent=4) + "\n"
             zf.writestr(json_file, json_data.encode("utf-8"))
+
+            # with zf.open(readme_file, "w") as file:
+            #    file.write(json_data.encode("utf-8"))
 
     except Exception as e:
         logger.error("File conversion failed: %s", e)
