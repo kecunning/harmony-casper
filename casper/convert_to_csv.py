@@ -125,17 +125,16 @@ def convert_to_csv(fname: str, zip_file: str, logger: Logger = default_logger) -
         input_filename = Path(fname).name
 
         # Sort the list of variables and the coordinates for consistency of output between systems
-        sorted_schemas = {k: sorted(v) for k, v in sorted(schemas.items())}
-        vals = list(sorted_schemas.items())
+        sorted_schemas = [(k, sorted(v)) for k, v in sorted(schemas.items())]
 
         # Create the zip file object in write mode
         with zipfile.ZipFile(
             zip_file, "w", compression=zipfile.ZIP_DEFLATED, allowZip64=True
         ) as zf:
-            logger.info(f"Creating {len(vals)} CSV files for {input_filename}")
+            logger.info(f"Creating {len(sorted_schemas)} CSV files for {input_filename}")
 
-            for idx in range(len(vals)):
-                dims, vvs = vals[idx]
+            for idx in range(len(sorted_schemas)):
+                dims, vvs = sorted_schemas[idx]
                 # Use Harmony generated filename
                 op_file = f"{input_filename}-{idx}.csv"
                 op_file = generate_output_filename(op_file, ext="csv", is_reformatted=True)
