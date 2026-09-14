@@ -3,14 +3,14 @@ revision = 3
 requires-python = ">=3.12, <4"
 resolution-markers = [
     "python_full_version >= '3.15' and platform_machine == 'ARM64' and sys_platform == 'win32'",
-    "python_full_version == '3.14.*' and platform_machine == 'ARM64' and sys_platform == 'win32'",
-    "python_full_version < '3.14' and platform_machine == 'ARM64' and sys_platform == 'win32'",
     "python_full_version >= '3.15' and platform_machine != 'ARM64' and sys_platform == 'win32'",
-    "python_full_version == '3.14.*' and platform_machine != 'ARM64' and sys_platform == 'win32'",
     "python_full_version >= '3.15' and sys_platform == 'emscripten'",
-    "python_full_version == '3.14.*' and sys_platform == 'emscripten'",
     "python_full_version >= '3.15' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.14.*' and platform_machine == 'ARM64' and sys_platform == 'win32'",
+    "python_full_version == '3.14.*' and platform_machine != 'ARM64' and sys_platform == 'win32'",
+    "python_full_version == '3.14.*' and sys_platform == 'emscripten'",
     "python_full_version == '3.14.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version < '3.14' and platform_machine == 'ARM64' and sys_platform == 'win32'",
     "python_full_version < '3.14' and platform_machine != 'ARM64' and sys_platform == 'win32'",
     "python_full_version < '3.14' and sys_platform == 'emscripten'",
     "python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
@@ -164,6 +164,59 @@ sdist = { url = "https://files.pythonhosted.org/packages/7a/b6/0b2ab38e422e93f28
 wheels = [
     { url = "https://files.pythonhosted.org/packages/25/dc/cf3b2ec4a419b20d2cd6ba8e1961bc59b7ec9801339628e31551dac23801/botocore-1.42.53-py3-none-any.whl", hash = "sha256:1255db56bc0a284a8caa182c20966277e6c8871b6881cf816d40e993fa5da503", size = 14589472, upload-time = "2026-02-19T20:33:40.377Z" },
 ]
+
+[[package]]
+name = "casper"
+source = { editable = "." }
+dependencies = [
+    { name = "harmony-service-lib" },
+    { name = "importlib-metadata" },
+    { name = "netcdf4" },
+    { name = "pystac" },
+    { name = "requests" },
+    { name = "xarray" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "markdown-callouts" },
+    { name = "markdown-include" },
+    { name = "mkdocs" },
+    { name = "mkdocs-jupyter" },
+    { name = "mkdocs-material" },
+    { name = "mkdocstrings" },
+    { name = "mkdocstrings-python" },
+    { name = "mypy" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "ruff" },
+]
+harmony = [
+    { name = "harmony-service-lib" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "harmony-service-lib", specifier = ">=3.0.0" },
+    { name = "harmony-service-lib", marker = "extra == 'harmony'", specifier = ">=3.0.0" },
+    { name = "importlib-metadata", specifier = ">=9.0.0" },
+    { name = "markdown-callouts", marker = "extra == 'dev'", specifier = ">=0.4.0" },
+    { name = "markdown-include", marker = "extra == 'dev'", specifier = ">=0.8.1" },
+    { name = "mkdocs", marker = "extra == 'dev'", specifier = ">=1.6.1" },
+    { name = "mkdocs-jupyter", marker = "extra == 'dev'", specifier = ">=0.26.3" },
+    { name = "mkdocs-material", marker = "extra == 'dev'", specifier = ">=9.7.6" },
+    { name = "mkdocstrings", marker = "extra == 'dev'", specifier = ">=1.0.4" },
+    { name = "mkdocstrings-python", marker = "extra == 'dev'", specifier = ">=2.0.5" },
+    { name = "mypy", marker = "extra == 'dev'", specifier = ">=2.1.0" },
+    { name = "netcdf4", specifier = ">=1.7.4" },
+    { name = "pystac", specifier = ">=1.15.1" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.1.1" },
+    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=7.1.0" },
+    { name = "requests", specifier = ">=2.34.2,<3.0.0" },
+    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.15.20" },
+    { name = "xarray", specifier = ">=2026.4.0" },
+]
+provides-extras = ["dev", "harmony"]
 
 [[package]]
 name = "certifi"
@@ -529,59 +582,6 @@ sdist = { url = "https://files.pythonhosted.org/packages/ad/06/eccbd311c9e2b3ca4
 wheels = [
     { url = "https://files.pythonhosted.org/packages/4d/51/c936033e16d12b627ea334aaaaf42229c37620d0f15593456ab69ab48161/griffelib-2.0.0-py3-none-any.whl", hash = "sha256:01284878c966508b6d6f1dbff9b6fa607bc062d8261c5c7253cb285b06422a7f", size = 142004, upload-time = "2026-02-09T19:09:40.561Z" },
 ]
-
-[[package]]
-name = "harmony-casper"
-source = { editable = "." }
-dependencies = [
-    { name = "harmony-service-lib" },
-    { name = "importlib-metadata" },
-    { name = "netcdf4" },
-    { name = "pystac" },
-    { name = "requests" },
-    { name = "xarray" },
-]
-
-[package.optional-dependencies]
-dev = [
-    { name = "markdown-callouts" },
-    { name = "markdown-include" },
-    { name = "mkdocs" },
-    { name = "mkdocs-jupyter" },
-    { name = "mkdocs-material" },
-    { name = "mkdocstrings" },
-    { name = "mkdocstrings-python" },
-    { name = "mypy" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "ruff" },
-]
-harmony = [
-    { name = "harmony-service-lib" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "harmony-service-lib", specifier = ">=3.0.0" },
-    { name = "harmony-service-lib", marker = "extra == 'harmony'", specifier = ">=3.0.0" },
-    { name = "importlib-metadata", specifier = ">=9.0.0" },
-    { name = "markdown-callouts", marker = "extra == 'dev'", specifier = ">=0.4.0" },
-    { name = "markdown-include", marker = "extra == 'dev'", specifier = ">=0.8.1" },
-    { name = "mkdocs", marker = "extra == 'dev'", specifier = ">=1.6.1" },
-    { name = "mkdocs-jupyter", marker = "extra == 'dev'", specifier = ">=0.26.3" },
-    { name = "mkdocs-material", marker = "extra == 'dev'", specifier = ">=9.7.6" },
-    { name = "mkdocstrings", marker = "extra == 'dev'", specifier = ">=1.0.4" },
-    { name = "mkdocstrings-python", marker = "extra == 'dev'", specifier = ">=2.0.5" },
-    { name = "mypy", marker = "extra == 'dev'", specifier = ">=2.1.0" },
-    { name = "netcdf4", specifier = ">=1.7.4" },
-    { name = "pystac", specifier = ">=1.15.1" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=9.1.1" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=7.1.0" },
-    { name = "requests", specifier = ">=2.34.2,<3.0.0" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.15.20" },
-    { name = "xarray", specifier = ">=2026.4.0" },
-]
-provides-extras = ["dev", "harmony"]
 
 [[package]]
 name = "harmony-service-lib"
@@ -1461,7 +1461,7 @@ name = "pexpect"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "ptyprocess", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
+    { name = "ptyprocess" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/42/92/cc564bf6381ff43ce1f4d06852fc19a2f11d180f23dc32d9588bee2f149d/pexpect-4.9.0.tar.gz", hash = "sha256:ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f", size = 166450, upload-time = "2023-11-25T09:07:26.339Z" }
 wheels = [
